@@ -87,8 +87,7 @@ Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alu
 
 **Instituição**: UNIFEBE (Centro Universitário de Brusque)  
 **Curso**: Sistemas da Informação  
-**Semestre/Ano**: 2026  
-**Tipo de Projeto**: Projeto Escolar
+**Semestre/Ano**: 1° Semestre/2026  
 
 ---
 
@@ -239,7 +238,7 @@ quiz-brusque/
 - **Narração de Respostas**: Opções de resposta narradas (opcional)
 - **Efeitos Sonoros**: 
   - Acerto: Som positivo e gratificante
-  - Erro: Som neutro e encorajador
+  - Erro: Som neutro
   - Transições: Efeitos suaves entre telas
 
 ### Configurações de Áudio
@@ -294,32 +293,18 @@ Contribuições são bem-vindas! Por favor:
 
 ---
 
-## 📞 Contato e Suporte
-
-Para dúvidas ou sugestões sobre o projeto:
-
-- **Email do Projeto**: [seu-email@unifebe.edu.br]
-- **GitHub Issues**: [Abra uma issue no repositório]
-- **Discussões**: Use a aba de Discussions no GitHub
-
----
-
 ## 🎓 Créditos Educacionais
 
-**Disciplina**: Projeto de Software  
-**Professor/Orientador**: [Nome do Professor]  
-**Período**: 2026  
+**Disciplina**: Curricularização
+**Professor/Orientador**: Jonathan Nau
 **Universidade**: UNIFEBE - Centro Universitário de Brusque
 
 ---
 
 ## 🚀 Roadmap Futuro
 
-- [ ] Modo multiplayer local
 - [ ] Integração com redes sociais
-- [ ] Leaderboard global
 - [ ] Mais temas (história geral, ciências, etc.)
-- [ ] App mobile nativo (React Native)
 - [ ] Suporte a outros idiomas
 - [ ] Sistema de selos e conquistas expandido
 - [ ] Minigames adicionais
@@ -337,7 +322,6 @@ Para dúvidas ou sugestões sobre o projeto:
 | Design UI/UX | 🔄 | Rafael Mai |
 | Banco de Dados | ⏳ | Davi Fischer |
 | Testes | ⏳ | Equipe |
-| Deploy | ⏳ | Rafael Mai |
 
 ---
 
@@ -353,7 +337,7 @@ Para dúvidas ou sugestões sobre o projeto:
 
 ## 📄 Notas Adicionais
 
-- Este é um projeto educacional desenvolvido como parte do currículo de Sistemas da Informação
+- Este é um projeto educacional desenvolvido como parte do currículo de Sistemas da Informação da instituição UNIFEBE
 - Todas as informações sobre Brusque foram cuidadosamente pesquisadas para garantir precisão educativa
 - O jogo foi desenvolvido com foco em acessibilidade e inclusão
 - Feedback de pais e educadores é sempre bem-vindo para melhorias futuras
