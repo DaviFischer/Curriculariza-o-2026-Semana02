@@ -1,0 +1,11 @@
+PROJETO: Quiz Brusque - Jogo Educativo Infantil
+
+INSTITUIÇÃO: UNIFEBE - Centro Universitário de Brusque
+CURSO: Sistemas da Informação
+MATÉRIA: Curricularização da Extensão - 2026.1 - SI - Projeto Secretaria de Educação
+PROFESSOR: Jonathan Nau
+
+INTEGRANTES DO GRUPO:
+- Rafael Mai Dubiella
+- Davi Fischer
+- João Pedro Muller Tonelli
