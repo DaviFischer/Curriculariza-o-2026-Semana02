@@ -97,7 +97,6 @@ Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alu
 - **HTML5** - Estrutura semântica
 - **CSS3** - Estilização e animações
 - **JavaScript** - Lógica interativa e áudio
-- **React.js** (opcional) - Componentes reutilizáveis
 
 ### Backend
 - **Node.js** - Ambiente de execução
@@ -107,7 +106,6 @@ Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alu
 ### Áudio
 - **Web Audio API** - Controle de áudio
 - **Text-to-Speech API** - Síntese de fala (Google Cloud ou semelhante)
-- **Bibliotecas de efeitos sonoros**
 
 ### Outras Ferramentas
 - **Git/GitHub** - Controle de versão
