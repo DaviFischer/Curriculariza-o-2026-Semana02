@@ -75,30 +75,12 @@ O jogo combina elementos visuais atraentes, narração em áudio e um sistema de
 
 ---
 
-## 👥 Equipe de Desenvolvimento
-
-Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alunos:
-
-| Nome | Função |
-|------|--------|
-| **Rafael Mai Dubiella** | Desenvolvedor Full Stack & Designer UI/UX |
-| **Davi Fischer** | Desenvolvedor Backend |
-| **João Pedro Muller Tonelli** | Desenvolvedor Frontend |
-
-**Instituição**: UNIFEBE (Centro Universitário de Brusque)  
-**Curso**: Sistemas da Informação  
-**Semestre/Ano**: 2026  
-**Tipo de Projeto**: Projeto Escolar
-
----
-
 ## 🛠️ Tecnologias Utilizadas
 
 ### Frontend
 - **HTML5** - Estrutura semântica
 - **CSS3** - Estilização e animações
 - **JavaScript** - Lógica interativa e áudio
-- **React.js** (opcional) - Componentes reutilizáveis
 
 ### Backend
 - **Node.js** - Ambiente de execução
@@ -108,7 +90,6 @@ Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alu
 ### Áudio
 - **Web Audio API** - Controle de áudio
 - **Text-to-Speech API** - Síntese de fala (Google Cloud ou semelhante)
-- **Bibliotecas de efeitos sonoros**
 
 ### Outras Ferramentas
 - **Git/GitHub** - Controle de versão
@@ -124,31 +105,7 @@ Este projeto é desenvolvido como trabalho de conclusão de disciplina pelos alu
 - npm ou yarn
 - Navegador moderno (Chrome, Firefox, Safari, Edge)
 
-### Passos de Instalação
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/quiz-brusque.git
-cd quiz-brusque
-
-# 2. Instale as dependências do backend
-npm install
-
-# 3. Configure as variáveis de ambiente
-cp .env.example .env
-# Edite o arquivo .env com suas configurações
-
-# 4. Instale as dependências do frontend (se separado)
-cd frontend
-npm install
-cd ..
-
-# 5. Inicie o servidor de desenvolvimento
-npm run dev
-
-# 6. Acesse no navegador
-# http://localhost:3000
-```
+---
 
 ### Configuração de Áudio
 1. Registre-se em uma API de Text-to-Speech (Google Cloud, Azure, etc.)
@@ -175,38 +132,6 @@ npm run dev
 - Visualize sua **pontuação final**
 - Veja **estatísticas da sessão**
 - Escolha **jogar novamente** ou **voltar ao menu**
-
----
-
-## 📊 Estrutura do Projeto
-
-```
-quiz-brusque/
-│
-├── frontend/
-│   ├── public/
-│   │   ├── audio/          # Arquivos de áudio (narração, efeitos)
-│   │   └── images/         # Imagens e ícones do jogo
-│   ├── src/
-│   │   ├── components/     # Componentes React reutilizáveis
-│   │   ├── pages/          # Páginas principais (Home, Game, Results)
-│   │   ├── styles/         # Arquivos CSS
-│   │   └── App.js          # Componente principal
-│   └── package.json
-│
-├── backend/
-│   ├── routes/             # Rotas da API (login, quiz, pontuação)
-│   ├── controllers/        # Lógica de negócio
-│   ├── models/             # Schemas do banco de dados
-│   ├── middleware/         # Middlewares de autenticação
-│   ├── config/             # Configurações (BD, variáveis de ambiente)
-│   └── server.js           # Arquivo principal do servidor
-│
-├── .env.example            # Variáveis de ambiente (exemplo)
-├── README.md               # Este arquivo
-├── LICENSE                 # Licença do projeto
-└── .gitignore              # Arquivos a ignorar no git
-```
 
 ---
 
@@ -239,7 +164,7 @@ quiz-brusque/
 - **Narração de Respostas**: Opções de resposta narradas (opcional)
 - **Efeitos Sonoros**: 
   - Acerto: Som positivo e gratificante
-  - Erro: Som neutro e encorajador
+  - Erro: Som neutro
   - Transições: Efeitos suaves entre telas
 
 ### Configurações de Áudio
@@ -294,50 +219,21 @@ Contribuições são bem-vindas! Por favor:
 
 ---
 
-## 📞 Contato e Suporte
-
-Para dúvidas ou sugestões sobre o projeto:
-
-- **Email do Projeto**: [seu-email@unifebe.edu.br]
-- **GitHub Issues**: [Abra uma issue no repositório]
-- **Discussões**: Use a aba de Discussions no GitHub
-
----
-
 ## 🎓 Créditos Educacionais
 
-**Disciplina**: Projeto de Software  
-**Professor/Orientador**: [Nome do Professor]  
-**Período**: 2026  
+**Disciplina**: Curricularização
+**Professor/Orientador**: Jonathan Nau
 **Universidade**: UNIFEBE - Centro Universitário de Brusque
 
 ---
 
 ## 🚀 Roadmap Futuro
 
-- [ ] Modo multiplayer local
 - [ ] Integração com redes sociais
-- [ ] Leaderboard global
 - [ ] Mais temas (história geral, ciências, etc.)
-- [ ] App mobile nativo (React Native)
 - [ ] Suporte a outros idiomas
 - [ ] Sistema de selos e conquistas expandido
 - [ ] Minigames adicionais
-
----
-
-## 📊 Status do Desenvolvimento
-
-| Funcionalidade | Status | Responsável |
-|---|---|---|
-| Frontend Base | ✅ | João Pedro |
-| Backend API | ✅ | Davi Fischer |
-| Sistema de Áudio | 🔄 | Rafael Mai |
-| Login/Cadastro | 🔄 | Rafael Mai |
-| Design UI/UX | 🔄 | Rafael Mai |
-| Banco de Dados | ⏳ | Davi Fischer |
-| Testes | ⏳ | Equipe |
-| Deploy | ⏳ | Rafael Mai |
 
 ---
 
@@ -353,7 +249,7 @@ Para dúvidas ou sugestões sobre o projeto:
 
 ## 📄 Notas Adicionais
 
-- Este é um projeto educacional desenvolvido como parte do currículo de Sistemas da Informação
+- Este é um projeto educacional desenvolvido como parte do currículo de Sistemas da Informação da instituição UNIFEBE
 - Todas as informações sobre Brusque foram cuidadosamente pesquisadas para garantir precisão educativa
 - O jogo foi desenvolvido com foco em acessibilidade e inclusão
 - Feedback de pais e educadores é sempre bem-vindo para melhorias futuras
