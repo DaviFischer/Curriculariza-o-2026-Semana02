@@ -1,6 +1,6 @@
 # 🎮 Quiz Brusque - Jogo Educativo Infantil
 
-![Versão](https://img.shields.io/badge/versão-1.0-blue) ![Idade](https://img.shields.io/badge/idade-5%2B-brightgreen) ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Versão](https://img.shields.io/badge/versão-1.0-blue) ![Idade](https://img.shields.io/badge/idade-5%2B-brightgreen) ![Status](https://img.shields.io/badge/status-funcional-brightgreen)
 
 ---
 
@@ -21,156 +21,205 @@ O jogo combina elementos visuais atraentes, narração em áudio e um sistema de
 - Três níveis de dificuldade: **Fácil**, **Médio** e **Difícil**
 - Conteúdo apropriado para crianças de 5 anos
 - Questões didáticas e envolventes
+- **Pool/Piscina de perguntas** separada por dificuldade (17 perguntas fáceis, 19 médias e 19 difíceis)
+- **Sorteio aleatório** de 10 perguntas por partida
+- **Embaralhamento das alternativas** a cada jogada
 
 ✅ **Sistema de Áudio Integrado**
-- Leitura automática de perguntas em áudio
-- Narração das respostas para melhor compreensão
-- Feedback sonoro para acertos e erros
-- Controle de volume ajustável
+- Leitura automática de perguntas em áudio (Web Speech API nativa)
+- Narração das alternativas de resposta
+- Feedback narrado para acertos e erros com mensagens de encorajamento
+- Voz configurada em português (pt-BR), com velocidade e tom amigáveis para crianças
+- Botão dedicado para repetir a leitura da pergunta
 
 ✅ **Interface Altamente Visual e Interativa**
 - Design colorido e atrativo para crianças
-- Animações suaves e dinamismo na experiência
-- Ícones e ilustrações representativas
-- Layout responsivo e intuitivo
+- Animações suaves: personagens pulando, confetes ao acertar, tremor em erros
+- Ícones e emojis representativos em cada pergunta
+- Layout totalmente responsivo (mobile, tablet, desktop)
+- Barra de progresso visual em tempo real
+- Botões grandes e amigáveis para dedos pequenos
 
 ✅ **Diversidade de Personagens**
-- Personagens de diferentes etnias
-- Representação de diferentes tamanhos e aparências
+- Personagens (emojis) de diferentes etnias e tons de pele
+- Representação de crianças, bebês e adultos variados
 - Inclusão e diversidade como pilares do design
-- Personagens que acompanham o progresso do jogador
+- Personagens animados nas telas inicial e final
 
-✅ **Sistema de Login/Cadastro (Opcional)**
-- Tela de boas-vindas com opções
-- Cadastro simples para salvar progresso
-- Jogar sem cadastro é totalmente possível
-- Perfil do jogador com histórico (se logado)
+✅ **Sistema de Login (Opcional)**
+- Tela de boas-vindas com campo de nome opcional
+- **Jogar sem cadastro é totalmente possível**
+- Nome salvo localmente no navegador para próximas sessões
+- Saudação personalizada com o nome da criança durante o jogo
 
 ✅ **Sistema de Dificuldade Progressivo**
-- **Fácil**: Perguntas básicas com múltipla escolha (3 opções)
-- **Médio**: Perguntas mais desafiadoras (4 opções)
-- **Difícil**: Questões avançadas para reforço de aprendizado (4 opções)
+- **Fácil** 🐣: Perguntas básicas sobre Brusque (cidade, estado, símbolos)
+- **Médio** 🦁: Perguntas sobre cultura, festas e história
+- **Difícil** 🚀: Questões avançadas sobre datas, nomes históricos e detalhes
+- Todas as dificuldades usam 4 opções de resposta
+
+✅ **Sistema de Encorajamento**
+- 10 mensagens variadas de parabéns para acertos
+- 10 mensagens motivacionais para erros (sem desanimar a criança)
+- Mensagem final personalizada baseada na pontuação
+- Confetes animados ao acertar e ao finalizar com boa pontuação
 
 ---
 
 ## 🎨 Aspectos de Design e Experiência
 
 ### Visual
-- Paleta de cores vibrante e amigável às crianças
-- Fontes grandes e legíveis
-- Ilustrações do patrimônio cultural de Brusque
+- Paleta de cores vibrante: rosa, amarelo, verde, azul, roxo e laranja
+- Fontes grandes e legíveis (Comic Sans MS / Trebuchet MS)
+- Gradientes coloridos em cada alternativa de resposta
 - Animações que não distraem o aprendizado
+- Nuvens decorativas animadas ao fundo
 
 ### Acessibilidade
-- Modo áudio completo (perguntas e respostas narradas)
-- Alt text em todas as imagens
+- Modo áudio completo (perguntas e respostas narradas automaticamente)
+- Atributos `aria-label` e `role` em elementos interativos
+- Navegação completa por teclado (Tab + Enter)
+- Foco visível em todos os elementos interativos
 - Contraste adequado de cores
-- Navegação simplificada
+- Tipografia responsiva com `clamp()`
 
 ### Interatividade
-- Botões com feedback visual imediato
-- Efeitos sonoros gratificantes
-- Barra de progresso visual
-- Sistema de pontuação/medalhas
+- Botões com feedback visual imediato (sombra 3D, animação ao clicar)
+- Efeitos sonoros e narração gratificantes
+- Barra de progresso visual animada
+- Sistema de pontuação com estrelas (de 1 a 5)
+- Confete animado com emojis ao acertar
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Frontend
-- **HTML5** - Estrutura semântica
-- **CSS3** - Estilização e animações
-- **JavaScript** - Lógica interativa e áudio
+### Frontend (100% Vanilla — sem frameworks ou bibliotecas externas)
+- **HTML5** — Estrutura semântica e acessível
+- **CSS3** — Estilização completa, utilizando:
+  - CSS Variables (`:root`) para sistema de cores consistente
+  - Flexbox e CSS Grid para layouts responsivos
+  - Keyframes e Animations para todas as animações
+  - Gradientes lineares e radiais
+  - Media queries para responsividade
+  - `clamp()` para tipografia responsiva
+  - Pseudo-elementos (`::before`) para decorações de fundo
+- **JavaScript (Vanilla / ES6+)** — Toda a lógica do jogo:
+  - Arrow functions, `const`/`let`, template literals
+  - Spread operator e manipulação de arrays
+  - Algoritmo Fisher-Yates para embaralhamento aleatório
+  - Manipulação dinâmica do DOM
 
-### Backend
-- **Node.js** - Ambiente de execução
-- **Express.js** - Framework web
-- **MongoDB** ou **Firebase** - Banco de dados (para histórico de usuários)
+### APIs Nativas do Navegador
+- **Web Speech API (SpeechSynthesis)** — Síntese de fala em português, totalmente gratuita e offline
+- **localStorage** — Armazenamento do nome do jogador no navegador
 
-### Áudio
-- **Web Audio API** - Controle de áudio
-- **Text-to-Speech API** - Síntese de fala (Google Cloud ou semelhante)
+### Recursos Visuais
+- **Emojis Unicode** — Ícones e personagens nativos do sistema (sem dependência de bibliotecas de ícones)
+- **Fontes do Sistema** — Comic Sans MS / Trebuchet MS (sem carregamento externo)
 
 ### Outras Ferramentas
-- **Git/GitHub** - Controle de versão
-- **Figma** - Design de interface
-- **VS Code** - IDE de desenvolvimento
+- **Git/GitHub** — Controle de versão
+- **VS Code** — IDE de desenvolvimento
+
+### ⚡ Diferenciais Técnicos
+- ❌ **Zero dependências externas** — sem React, Vue, jQuery, ou qualquer biblioteca
+- ❌ **Zero requisições de rede** — funciona 100% offline após o primeiro carregamento
+- ✅ **Arquivo único** — todo o jogo está em um único `.html` autossuficiente
+- ✅ **Sem backend** — não requer servidor para funcionar
 
 ---
 
 ## 📦 Instalação e Configuração
 
 ### Pré-requisitos
-- Node.js v14.0 ou superior
-- npm ou yarn
-- Navegador moderno (Chrome, Firefox, Safari, Edge)
+- Navegador moderno (Chrome, Firefox, Safari, Edge — versão recente)
+- Nenhuma instalação adicional necessária!
 
----
+### Como Executar
+1. Baixe o arquivo `quiz-brusque.html`
+2. Clique duas vezes no arquivo (ou abra com qualquer navegador)
+3. Pronto! O jogo está rodando
 
-### Configuração de Áudio
-1. Registre-se em uma API de Text-to-Speech (Google Cloud, Azure, etc.)
-2. Adicione as credenciais ao arquivo `.env`
-3. Configure a chave de API no código
+### Hospedagem (opcional)
+Para disponibilizar online, basta hospedar o arquivo HTML em qualquer serviço de hospedagem estática:
+- GitHub Pages
+- Netlify
+- Vercel
+- Servidor web simples (Apache, Nginx)
 
 ---
 
 ## 🎮 Como Jogar
 
 ### Tela Inicial
-1. **Jogar Sem Login**: Clique em "Jogar Agora" para começar imediatamente
-2. **Criar Conta**: Preencha nome e escolha um personagem (opcional)
-3. **Fazer Login**: Se já tiver conta, faça login para acessar seu histórico
+1. **Digite seu nome** (opcional) — ou pule essa etapa
+2. Clique em **"Vamos Jogar!"** para começar
+
+### Escolha de Dificuldade
+1. Escolha entre:
+   - 🐣 **Fácil** — 1 estrela
+   - 🦁 **Médio** — 2 estrelas
+   - 🚀 **Difícil** — 3 estrelas
 
 ### Durante o Jogo
-1. Selecione o **nível de dificuldade** (Fácil, Médio ou Difícil)
-2. Clique no **ícone de áudio** para ouvir a pergunta
-3. Selecione uma das **respostas disponíveis**
-4. Receba **feedback imediato** (áudio + visual)
-5. Progresso é salvo automaticamente
+1. A pergunta é lida **automaticamente** em voz alta
+2. Clique no ícone 🔊 para **ouvir novamente**
+3. Selecione uma das **4 alternativas**
+4. Receba **feedback imediato** (visual + sonoro + narrado)
+5. Acompanhe seu progresso pela **barra superior**
 
 ### Após Completar
-- Visualize sua **pontuação final**
-- Veja **estatísticas da sessão**
-- Escolha **jogar novamente** ou **voltar ao menu**
+- Visualize sua **pontuação final** (X de 10)
+- Veja suas **estrelas conquistadas** (até 5 estrelas)
+- Receba uma **mensagem personalizada** de encorajamento
+- Escolha entre:
+  - 🔄 **Jogar de Novo** (mesma dificuldade)
+  - 🎯 **Trocar Nível** (nova dificuldade)
+  - 🏠 **Voltar ao Início**
 
 ---
 
 ## 📚 Conteúdo Educativo
 
 ### Temas Abordados sobre Brusque
-- 🏛️ **História**: Fundação, desenvolvimento, marcos históricos
-- 🎭 **Cultura**: Tradições, festas, expressões culturais
-- 🏞️ **Pontos Turísticos**: Museus, praças, monumentos
-- 🏭 **Desenvolvimento**: Economia, indústria têxtil
-- 👥 **Diversidade**: Comunidades, imigrantes
-- 🌳 **Meio Ambiente**: Natureza local, preservação
+- 🏛️ **História**: Fundação (1860), Barão de Schneeburg, nome da cidade
+- 🎭 **Cultura**: Fenarreco, tradições alemãs, italianas e portuguesas
+- 🏞️ **Pontos Turísticos**: Pórtico, Santuário de Azambuja, Museu Histórico
+- 🏭 **Desenvolvimento**: Indústria têxtil, fábrica Renaux, comércio de roupas
+- 👥 **Diversidade**: Imigrantes alemães, italianos, poloneses e portugueses
+- 🌳 **Meio Ambiente**: Vale do Itajaí, Rio Itajaí-Mirim, Mata Atlântica
+- ⚽ **Esporte**: Brusque FC (Quadricolor do Vale), Estádio Augusto Bauer
+- 🍞 **Gastronomia**: Cuca, marreco, comidas típicas alemãs
 
 ---
 
 ## 🔒 Privacidade e Segurança
 
 - ✅ Conformidade com LGPD (Lei Geral de Proteção de Dados)
-- ✅ Dados de menores protegidos
-- ✅ Sem coleta desnecessária de informações
-- ✅ Senhas criptografadas (se aplicável)
-- ✅ Sessões seguras
+- ✅ **Nenhum dado é enviado para servidores externos**
+- ✅ Nome salvo apenas no navegador local (localStorage)
+- ✅ Sem coleta de informações pessoais
+- ✅ Sem cookies de rastreamento
+- ✅ Seguro para uso infantil
 
 ---
 
 ## 🎵 Integração de Áudio
 
 ### Recursos de Áudio
-- **Narração de Perguntas**: Cada pergunta é lida em voz clara
-- **Narração de Respostas**: Opções de resposta narradas (opcional)
-- **Efeitos Sonoros**: 
-  - Acerto: Som positivo e gratificante
-  - Erro: Som neutro
-  - Transições: Efeitos suaves entre telas
+- **Narração Automática**: Cada pergunta é lida automaticamente ao aparecer
+- **Narração de Alternativas**: As 4 opções são narradas em sequência (A, B, C, D)
+- **Feedback Narrado**: 
+  - Acerto: Mensagens variadas de parabéns ("Muito bem!", "Você é demais!", etc.)
+  - Erro: Mensagens encorajadoras ("Tudo bem!", "Continue tentando!", etc.)
+- **Botão de Repetir**: Permite ouvir a pergunta novamente a qualquer momento
 
-### Configurações de Áudio
-- Ajuste de volume
-- Opção de mutar completamente
-- Velocidade de reprodução (lenta/normal/rápida)
+### Configurações da Voz
+- Idioma: Português Brasileiro (pt-BR)
+- Velocidade: 0.85 (mais lenta, ideal para crianças)
+- Tom: 1.2 (mais agudo, voz amigável)
+- Volume: 100%
 
 ---
 
@@ -179,25 +228,34 @@ O jogo combina elementos visuais atraentes, narração em áudio e um sistema de
 O jogo funciona perfeitamente em:
 - 🖥️ **Desktops**: Telas 1920x1080 e superiores
 - 💻 **Tablets**: iPad, Android tablets
-- 📱 **Smartphones**: Telas de 375px a 768px de largura
+- 📱 **Smartphones**: Telas a partir de 320px de largura
+- 🖱️ **Touch e Mouse**: Compatível com ambos os tipos de entrada
 
 ---
 
 ## 🐛 Resolução de Problemas
 
 ### Áudio não funciona
-- Verifique as permissões do navegador
+- Verifique se o navegador permite reprodução de áudio
 - Certifique-se de que o volume do sistema está ativo
-- Limpe o cache do navegador
+- Alguns navegadores exigem interação inicial do usuário antes de reproduzir áudio
+- Teste em outro navegador (Chrome tem o melhor suporte para Web Speech API)
 
-### Quiz não salva o progresso (sem login)
-- Dados locais são armazenados no navegador (localStorage)
-- Limpar dados do navegador pode apagar o histórico
+### Quiz não lembra o nome
+- Verifique se o navegador permite localStorage
+- Modo anônimo/privado pode bloquear o armazenamento
+- Limpar dados do navegador apaga o nome salvo
 
 ### Página não carrega
-- Verifique a conexão com a internet
-- Reinicie o servidor com `npm run dev`
-- Limpe o cache do navegador
+- Verifique se o arquivo HTML está completo
+- Tente abrir em outro navegador
+- Use um navegador atualizado (versões recentes do Chrome, Firefox, Safari ou Edge)
+
+### Voz robotizada ou em outro idioma
+- O navegador escolhe a melhor voz disponível em pt-BR
+- Em alguns sistemas, pode ser necessário instalar pacote de voz em português
+- Windows: Configurações > Hora e Idioma > Fala
+- Mac: Preferências do Sistema > Acessibilidade > Fala
 
 ---
 
@@ -217,23 +275,39 @@ Contribuições são bem-vindas! Por favor:
 4. Push para a Branch (`git push origin feature/MinhaFeature`)
 5. Abra um **Pull Request**
 
+### Como adicionar novas perguntas
+As perguntas estão no objeto `PERGUNTAS` no JavaScript, divididas por dificuldade. Basta adicionar novos objetos seguindo o formato:
+```javascript
+{
+  icone: "🏙️",
+  pergunta: "Sua pergunta aqui?",
+  opcoes: ["Opção 1", "Opção 2", "Opção 3", "Opção 4"],
+  correta: 0  // índice da resposta correta (0 a 3)
+}
+```
+
 ---
 
 ## 🎓 Créditos Educacionais
 
-**Disciplina**: Curricularização
-**Professor/Orientador**: Jonathan Nau
+**Disciplina**: Curricularização  
+**Professor/Orientador**: Jonathan Nau  
 **Universidade**: UNIFEBE - Centro Universitário de Brusque
 
 ---
 
 ## 🚀 Roadmap Futuro
 
-- [ ] Integração com redes sociais
-- [ ] Mais temas (história geral, ciências, etc.)
-- [ ] Suporte a outros idiomas
-- [ ] Sistema de selos e conquistas expandido
-- [ ] Minigames adicionais
+- [ ] Expandir piscina de perguntas (mais de 50 por dificuldade)
+- [ ] Sistema de selos e conquistas
+- [ ] Modo multiplayer local (revezamento)
+- [ ] Imagens reais dos pontos turísticos de Brusque
+- [ ] Suporte a outros idiomas (alemão e italiano, devido à imigração)
+- [ ] Versão PWA (Progressive Web App) para instalação no celular
+- [ ] Modo "história" com narrativa contínua
+- [ ] Categorias temáticas (apenas história, apenas cultura, etc.)
+- [ ] Sistema de ranking entre amigos
+- [ ] Versão para professores com relatórios de aprendizado
 
 ---
 
@@ -251,10 +325,11 @@ Contribuições são bem-vindas! Por favor:
 
 - Este é um projeto educacional desenvolvido como parte do currículo de Sistemas da Informação da instituição UNIFEBE
 - Todas as informações sobre Brusque foram cuidadosamente pesquisadas para garantir precisão educativa
-- O jogo foi desenvolvido com foco em acessibilidade e inclusão
+- O jogo foi desenvolvido com foco em **acessibilidade e inclusão**
+- **Arquivo HTML único e autossuficiente** — não requer instalação, servidor ou conexão com internet
 - Feedback de pais e educadores é sempre bem-vindo para melhorias futuras
 
 ---
 
 **Última atualização**: 2026  
-**Versão**: 1.0.0-alpha
+**Versão**: 1.0.0
