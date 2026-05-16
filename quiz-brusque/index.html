@@ -1,13 +1,1343 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Brusque</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌟 Quiz da Cidade de Brusque 🌟</title>
+<style>
+  /* ========== RESET E BASE ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rosa: #ff6b9d;
+    --amarelo: #ffd93d;
+    --verde: #6bcf7f;
+    --azul: #4d96ff;
+    --roxo: #b388ff;
+    --laranja: #ff9248;
+    --branco: #fff8f0;
+    --escuro: #2d3047;
+    --sombra: 0 8px 0 rgba(0,0,0,0.15);
+  }
+
+  body {
+    font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #fce38a 0%, #f38181 50%, #95e1d3 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--escuro);
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Nuvens decorativas no fundo */
+  body::before {
+    content: '☁️ ⭐ 🌈 ☁️ ⭐ 🌈 ☁️ ⭐ 🌈 ☁️ ⭐ 🌈 ☁️ ⭐ 🌈 ☁️ ⭐ 🌈';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    font-size: 2.5rem;
+    opacity: 0.25;
+    line-height: 3;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+    animation: nuvens 60s linear infinite;
+  }
+
+  @keyframes nuvens {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ========== CONTAINER PRINCIPAL ========== */
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tela {
+    width: 100%;
+    background: var(--branco);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: var(--sombra), 0 20px 60px rgba(0,0,0,0.2);
+    border: 6px solid var(--escuro);
+    animation: aparecer 0.5s ease;
+    display: none;
+  }
+
+  .tela.ativa { display: block; }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: scale(0.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ========== TÍTULO ========== */
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    text-align: center;
+    color: var(--escuro);
+    margin-bottom: 15px;
+    text-shadow: 4px 4px 0 var(--amarelo);
+    line-height: 1.1;
+  }
+
+  .subtitulo {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--escuro);
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+  /* ========== PERSONAGENS DIVERSOS ========== */
+  .personagens {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .personagem {
+    font-size: 3rem;
+    animation: pular 2s ease-in-out infinite;
+    display: inline-block;
+  }
+  .personagem:nth-child(1) { animation-delay: 0s; }
+  .personagem:nth-child(2) { animation-delay: 0.2s; }
+  .personagem:nth-child(3) { animation-delay: 0.4s; }
+  .personagem:nth-child(4) { animation-delay: 0.6s; }
+  .personagem:nth-child(5) { animation-delay: 0.8s; }
+  .personagem:nth-child(6) { animation-delay: 1s; }
+  .personagem:nth-child(7) { animation-delay: 1.2s; }
+  .personagem:nth-child(8) { animation-delay: 1.4s; }
+
+  @keyframes pular {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  /* ========== INPUT LOGIN ========== */
+  .login-box {
+    background: linear-gradient(135deg, #fff 0%, #ffeaa7 100%);
+    border: 4px dashed var(--rosa);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .login-box label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--escuro);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    max-width: 350px;
+    padding: 15px 20px;
+    font-size: 1.3rem;
+    font-family: inherit;
+    border: 4px solid var(--azul);
+    border-radius: 15px;
+    text-align: center;
+    background: white;
+    color: var(--escuro);
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--rosa);
+    transform: scale(1.05);
+  }
+
+  .login-hint {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* ========== BOTÕES ========== */
+  .botao {
+    display: inline-block;
+    padding: 18px 35px;
+    font-size: 1.4rem;
+    font-family: inherit;
+    font-weight: bold;
+    color: white;
+    background: var(--rosa);
+    border: 4px solid var(--escuro);
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--escuro);
+    transition: all 0.15s;
+    margin: 8px;
+    text-align: center;
+    min-width: 200px;
+  }
+
+  .botao:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--escuro); }
+  .botao:active { transform: translateY(6px); box-shadow: 0 0 0 var(--escuro); }
+
+  .botao.verde { background: var(--verde); }
+  .botao.amarelo { background: var(--amarelo); color: var(--escuro); }
+  .botao.azul { background: var(--azul); }
+  .botao.laranja { background: var(--laranja); }
+  .botao.roxo { background: var(--roxo); }
+
+  .botoes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  /* ========== DIFICULDADES ========== */
+  .dificuldades {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .card-dificuldade {
+    background: white;
+    border: 5px solid var(--escuro);
+    border-radius: 25px;
+    padding: 25px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+    box-shadow: 0 8px 0 var(--escuro);
+  }
+
+  .card-dificuldade:hover { transform: translateY(-5px); box-shadow: 0 13px 0 var(--escuro); }
+  .card-dificuldade:active { transform: translateY(4px); box-shadow: 0 4px 0 var(--escuro); }
+
+  .card-dificuldade.facil { background: linear-gradient(135deg, #c5f0c4 0%, #6bcf7f 100%); }
+  .card-dificuldade.medio { background: linear-gradient(135deg, #ffe5a3 0%, #ffd93d 100%); }
+  .card-dificuldade.dificil { background: linear-gradient(135deg, #ffb3ba 0%, #ff6b6b 100%); }
+
+  .card-dificuldade .icone-grande {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .card-dificuldade .nome {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--escuro);
+  }
+
+  .card-dificuldade .estrelas {
+    font-size: 1.5rem;
+    margin-top: 8px;
+  }
+
+  /* ========== TELA DE PERGUNTA ========== */
+  .barra-progresso {
+    background: #e0e0e0;
+    border-radius: 20px;
+    height: 30px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 4px solid var(--escuro);
+    position: relative;
+  }
+
+  .progresso-preenchimento {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde), var(--amarelo));
+    transition: width 0.5s ease;
+    border-radius: 16px 0 0 16px;
+  }
+
+  .info-jogo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .info-item {
+    background: var(--amarelo);
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: 3px solid var(--escuro);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .pergunta-box {
+    background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 100%);
+    border: 5px solid var(--escuro);
+    border-radius: 25px;
+    padding: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .pergunta-icone {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    display: block;
+    animation: balancar 2s ease-in-out infinite;
+  }
+
+  @keyframes balancar {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  .pergunta-texto {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: bold;
+    color: var(--escuro);
+    margin-bottom: 15px;
+    line-height: 1.4;
+  }
+
+  .btn-audio {
+    background: var(--azul);
+    color: white;
+    border: 3px solid var(--escuro);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--escuro);
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-audio:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--escuro); }
+  .btn-audio:active { transform: translateY(4px); box-shadow: 0 0 0 var(--escuro); }
+  .btn-audio.tocando { animation: piscar 1s infinite; }
+
+  @keyframes piscar {
+    0%, 100% { background: var(--azul); }
+    50% { background: var(--rosa); }
+  }
+
+  /* ========== RESPOSTAS ========== */
+  .respostas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  @media (min-width: 600px) {
+    .respostas { grid-template-columns: 1fr 1fr; }
+  }
+
+  .resposta {
+    background: white;
+    border: 4px solid var(--escuro);
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: inherit;
+    color: var(--escuro);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 6px 0 var(--escuro);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    min-height: 80px;
+  }
+
+  .resposta:hover { transform: translateY(-3px); box-shadow: 0 9px 0 var(--escuro); }
+  .resposta:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--escuro); }
+
+  .resposta:nth-child(1) { background: linear-gradient(135deg, #ffcdd2, #ef9a9a); }
+  .resposta:nth-child(2) { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); }
+  .resposta:nth-child(3) { background: linear-gradient(135deg, #bbdefb, #90caf9); }
+  .resposta:nth-child(4) { background: linear-gradient(135deg, #fff9c4, #fff59d); }
+
+  .resposta .letra {
+    background: var(--escuro);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .resposta.correta {
+    background: linear-gradient(135deg, #81c784, #4caf50) !important;
+    color: white;
+    animation: comemorar 0.6s;
+  }
+
+  .resposta.errada {
+    background: linear-gradient(135deg, #e57373, #f44336) !important;
+    color: white;
+    animation: tremor 0.5s;
+  }
+
+  .resposta:disabled { cursor: not-allowed; opacity: 0.7; }
+
+  @keyframes comemorar {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  @keyframes tremor {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+  }
+
+  /* ========== FEEDBACK ========== */
+  .feedback {
+    text-align: center;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: none;
+    animation: aparecer 0.4s;
+  }
+
+  .feedback.show { display: block; }
+
+  .feedback.acerto {
+    background: linear-gradient(135deg, #81c784, #4caf50);
+    color: white;
+    border: 4px solid var(--escuro);
+  }
+
+  .feedback.erro {
+    background: linear-gradient(135deg, #ffb74d, #ff9800);
+    color: white;
+    border: 4px solid var(--escuro);
+  }
+
+  .feedback-emoji {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 10px;
+    animation: pular 1s ease-in-out infinite;
+  }
+
+  /* ========== TELA FINAL ========== */
+  .tela-final {
+    text-align: center;
+  }
+
+  .pontuacao-final {
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--rosa);
+    text-shadow: 4px 4px 0 var(--amarelo);
+    margin: 20px 0;
+    animation: pular 2s ease-in-out infinite;
+  }
+
+  .mensagem-final {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: var(--escuro);
+  }
+
+  .estrelas-final {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+
+  /* ========== CONFETE ========== */
+  .confete {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+    z-index: 1000;
+    animation: cair 3s linear forwards;
+  }
+
+  @keyframes cair {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ========== AJUSTES MOBILE ========== */
+  @media (max-width: 500px) {
+    .app { padding: 10px; }
+    .tela { padding: 20px; border-radius: 25px; }
+    h1 { font-size: 2rem; }
+    .botao { font-size: 1.2rem; padding: 15px 25px; min-width: 180px; }
+    .resposta { font-size: 1.1rem; padding: 15px; }
+  }
+
+  /* Acessibilidade - foco visível */
+  button:focus-visible, input:focus-visible {
+    outline: 4px solid var(--roxo);
+    outline-offset: 3px;
+  }
+</style>
 </head>
 <body>
 
-    <script src="js/script.js"></script>
+<div class="app">
+
+  <!-- ====================== TELA INICIAL ====================== -->
+  <div id="tela-inicial" class="tela ativa">
+    <h1>🌟 Quiz de Brusque! 🌟</h1>
+    <p class="subtitulo">🏙️ Vamos aprender sobre nossa cidade? 🎉</p>
+
+    <div class="personagens" aria-label="Crianças de várias etnias">
+      <span class="personagem" role="img" aria-label="criança">👦🏻</span>
+      <span class="personagem" role="img" aria-label="criança">👧🏽</span>
+      <span class="personagem" role="img" aria-label="criança">🧒🏿</span>
+      <span class="personagem" role="img" aria-label="criança">👶🏾</span>
+      <span class="personagem" role="img" aria-label="criança">👦🏼</span>
+      <span class="personagem" role="img" aria-label="criança">👧🏻</span>
+      <span class="personagem" role="img" aria-label="criança">🧒🏽</span>
+      <span class="personagem" role="img" aria-label="criança">👧🏿</span>
+    </div>
+
+    <div class="login-box">
+      <label for="nome-input">✨ Qual é o seu nome? ✨</label>
+      <input type="text" id="nome-input" placeholder="Digite aqui (ou pule!)" maxlength="20" autocomplete="off">
+      <p class="login-hint">🤫 Você pode jogar sem digitar o nome também!</p>
+    </div>
+
+    <div class="botoes-container">
+      <button class="botao verde" onclick="irParaDificuldades()">
+        ▶️ Vamos Jogar!
+      </button>
+    </div>
+  </div>
+
+  <!-- ====================== TELA DIFICULDADES ====================== -->
+  <div id="tela-dificuldade" class="tela">
+    <h1 id="ola-jogador">🎮 Escolha o Nível!</h1>
+    <p class="subtitulo">Qual desafio você quer? 💪</p>
+
+    <div class="dificuldades">
+      <div class="card-dificuldade facil" onclick="iniciarQuiz('facil')" role="button" tabindex="0">
+        <span class="icone-grande">🐣</span>
+        <div class="nome">FÁCIL</div>
+        <div class="estrelas">⭐</div>
+        <p style="margin-top:8px;font-size:1rem;">Para começar!</p>
+      </div>
+
+      <div class="card-dificuldade medio" onclick="iniciarQuiz('medio')" role="button" tabindex="0">
+        <span class="icone-grande">🦁</span>
+        <div class="nome">MÉDIO</div>
+        <div class="estrelas">⭐⭐</div>
+        <p style="margin-top:8px;font-size:1rem;">Um pouco mais difícil!</p>
+      </div>
+
+      <div class="card-dificuldade dificil" onclick="iniciarQuiz('dificil')" role="button" tabindex="0">
+        <span class="icone-grande">🚀</span>
+        <div class="nome">DIFÍCIL</div>
+        <div class="estrelas">⭐⭐⭐</div>
+        <p style="margin-top:8px;font-size:1rem;">Você é um campeão!</p>
+      </div>
+    </div>
+
+    <div class="botoes-container" style="margin-top:25px;">
+      <button class="botao azul" onclick="voltarInicial()">⬅️ Voltar</button>
+    </div>
+  </div>
+
+  <!-- ====================== TELA QUIZ ====================== -->
+  <div id="tela-quiz" class="tela">
+    <div class="info-jogo">
+      <div class="info-item">📝 <span id="numero-pergunta">1</span>/10</div>
+      <div class="info-item">🏆 <span id="pontos-atuais">0</span></div>
+      <div class="info-item" id="nivel-atual">🐣 Fácil</div>
+    </div>
+
+    <div class="barra-progresso">
+      <div class="progresso-preenchimento" id="progresso" style="width:10%"></div>
+    </div>
+
+    <div class="pergunta-box">
+      <span class="pergunta-icone" id="pergunta-icone">❓</span>
+      <p class="pergunta-texto" id="pergunta-texto">Pergunta aqui</p>
+      <button class="btn-audio" id="btn-audio" onclick="lerPergunta()" aria-label="Ouvir pergunta">
+        🔊
+      </button>
+    </div>
+
+    <div class="respostas" id="respostas-container"></div>
+
+    <div class="feedback" id="feedback">
+      <span class="feedback-emoji" id="feedback-emoji">🎉</span>
+      <p id="feedback-texto">Muito bem!</p>
+    </div>
+  </div>
+
+  <!-- ====================== TELA FINAL ====================== -->
+  <div id="tela-final" class="tela tela-final">
+    <h1 id="titulo-final">🎊 Parabéns! 🎊</h1>
+    <div class="personagens">
+      <span class="personagem">🥳</span>
+      <span class="personagem">🎈</span>
+      <span class="personagem">🎁</span>
+      <span class="personagem">🌈</span>
+      <span class="personagem">⭐</span>
+    </div>
+
+    <div class="pontuacao-final"><span id="pontuacao-texto">0</span>/10</div>
+    <div class="estrelas-final" id="estrelas-final">⭐⭐⭐</div>
+    <p class="mensagem-final" id="mensagem-final">Você foi incrível!</p>
+
+    <div class="botoes-container">
+      <button class="botao verde" onclick="reiniciarMesmoNivel()">🔄 Jogar de Novo</button>
+      <button class="botao amarelo" onclick="irParaDificuldades()">🎯 Trocar Nível</button>
+      <button class="botao azul" onclick="voltarInicial()">🏠 Início</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   PISCINA DE PERGUNTAS SOBRE BRUSQUE
+   Cada dificuldade tem MUITAS perguntas; sorteamos 10 a cada jogo.
+   ============================================================ */
+
+const PERGUNTAS = {
+  facil: [
+    {
+      icone: "🏙️",
+      pergunta: "Brusque é o quê?",
+      opcoes: ["Uma cidade", "Um animal", "Uma fruta", "Um brinquedo"],
+      correta: 0
+    },
+    {
+      icone: "🇧🇷",
+      pergunta: "Brusque fica em qual país?",
+      opcoes: ["Argentina", "Brasil", "Itália", "Alemanha"],
+      correta: 1
+    },
+    {
+      icone: "🗺️",
+      pergunta: "Brusque fica em qual estado?",
+      opcoes: ["São Paulo", "Santa Catarina", "Bahia", "Paraná"],
+      correta: 1
+    },
+    {
+      icone: "🌊",
+      pergunta: "Qual rio passa por Brusque?",
+      opcoes: ["Rio Amazonas", "Rio Itajaí-Mirim", "Rio Tietê", "Rio São Francisco"],
+      correta: 1
+    },
+    {
+      icone: "⚽",
+      pergunta: "Qual é o time de futebol de Brusque?",
+      opcoes: ["Flamengo", "Brusque FC", "Palmeiras", "Corinthians"],
+      correta: 1
+    },
+    {
+      icone: "🧺",
+      pergunta: "Brusque é famosa pela produção de qual produto?",
+      opcoes: ["Roupas e tecidos", "Carros", "Aviões", "Navios"],
+      correta: 0
+    },
+    {
+      icone: "🌳",
+      pergunta: "O que tem muito em Brusque?",
+      opcoes: ["Deserto", "Montanhas e árvores", "Mar", "Gelo"],
+      correta: 1
+    },
+    {
+      icone: "🏖️",
+      pergunta: "Brusque tem praia?",
+      opcoes: ["Sim, muitas", "Não, é cidade do interior", "Tem só uma", "Tem rio do mar"],
+      correta: 1
+    },
+    {
+      icone: "🇮🇹",
+      pergunta: "Muitas famílias de Brusque vieram de qual país?",
+      opcoes: ["Japão", "Itália e Alemanha", "China", "Estados Unidos"],
+      correta: 1
+    },
+    {
+      icone: "☀️",
+      pergunta: "Em Brusque tem qual estação do ano?",
+      opcoes: ["Só calor", "Só frio", "Todas as estações", "Só chuva"],
+      correta: 2
+    },
+    {
+      icone: "🎉",
+      pergunta: "Brusque tem festas tradicionais?",
+      opcoes: ["Não tem festas", "Sim, muitas festas legais", "Só Natal", "Só Carnaval"],
+      correta: 1
+    },
+    {
+      icone: "🦅",
+      pergunta: "Qual é o símbolo no escudo de Brusque?",
+      opcoes: ["Um peixe", "Uma águia", "Um cavalo", "Uma onça"],
+      correta: 1
+    },
+    {
+      icone: "🏫",
+      pergunta: "Em Brusque tem escolas?",
+      opcoes: ["Não, nenhuma", "Sim, várias escolas", "Só uma escola", "Só faculdades"],
+      correta: 1
+    },
+    {
+      icone: "👨‍👩‍👧‍👦",
+      pergunta: "Como se chama quem nasce em Brusque?",
+      opcoes: ["Brusquino", "Brusquense", "Brasileiro só", "Catarinense só"],
+      correta: 1
+    },
+    {
+      icone: "🌈",
+      pergunta: "Brusque é uma cidade...",
+      opcoes: ["Bonita e acolhedora", "Só de pedra", "Sem cor", "Sem pessoas"],
+      correta: 0
+    },
+    {
+      icone: "🚗",
+      pergunta: "Qual transporte usamos em Brusque?",
+      opcoes: ["Só camelo", "Carros, ônibus e bicicletas", "Só barco", "Só avião"],
+      correta: 1
+    },
+    {
+      icone: "🥨",
+      pergunta: "Qual comida típica alemã é famosa em Brusque?",
+      opcoes: ["Sushi", "Cuca e pão", "Hambúrguer", "Pizza só"],
+      correta: 1
+    }
+  ],
+
+  medio: [
+    {
+      icone: "📅",
+      pergunta: "Brusque foi fundada por imigrantes de qual lugar primeiro?",
+      opcoes: ["Japão", "Alemanha", "França", "Espanha"],
+      correta: 1
+    },
+    {
+      icone: "🎭",
+      pergunta: "Como se chama a festa típica de Brusque com tradições alemã, italiana e portuguesa?",
+      opcoes: ["Carnaval", "Fenarreco", "Oktoberfest só", "Festa Junina"],
+      correta: 1
+    },
+    {
+      icone: "🦆",
+      pergunta: "Qual animal dá nome à Fenarreco?",
+      opcoes: ["Pato", "Marreco", "Galinha", "Peru"],
+      correta: 1
+    },
+    {
+      icone: "🏛️",
+      pergunta: "Brusque é conhecida como a 'Berço' de qual coisa?",
+      opcoes: ["Da fiação catarinense", "Do café", "Do petróleo", "Da soja"],
+      correta: 0
+    },
+    {
+      icone: "⛪",
+      pergunta: "Qual é a religião principal trazida pelos imigrantes de Brusque?",
+      opcoes: ["Budismo", "Cristianismo (católica e luterana)", "Hinduísmo", "Nenhuma"],
+      correta: 1
+    },
+    {
+      icone: "🎽",
+      pergunta: "Qual é a cor principal do Brusque FC?",
+      opcoes: ["Azul e branco", "Vermelho e preto", "Verde e amarelo", "Roxo e rosa"],
+      correta: 0
+    },
+    {
+      icone: "🛍️",
+      pergunta: "Brusque é famosa por ter muitas lojas de quê?",
+      opcoes: ["Brinquedos", "Roupas (têxtil)", "Sapatos só", "Doces"],
+      correta: 1
+    },
+    {
+      icone: "🌄",
+      pergunta: "A região de Brusque fica em qual tipo de paisagem?",
+      opcoes: ["Vale", "Deserto", "Praia", "Pantanal"],
+      correta: 0
+    },
+    {
+      icone: "🏞️",
+      pergunta: "Em qual vale Brusque está localizada?",
+      opcoes: ["Vale do Itajaí", "Vale do Ribeira", "Vale do Aço", "Vale dos Vinhedos"],
+      correta: 0
+    },
+    {
+      icone: "🎓",
+      pergunta: "Quem foi o líder dos primeiros imigrantes em Brusque?",
+      opcoes: ["Dom Pedro", "Barão de Schneeburg (Maximiliano)", "Tiradentes", "Getúlio Vargas"],
+      correta: 1
+    },
+    {
+      icone: "🏭",
+      pergunta: "Qual atividade fez Brusque crescer muito?",
+      opcoes: ["Pesca", "Indústria têxtil (roupas)", "Mineração", "Plantação de banana"],
+      correta: 1
+    },
+    {
+      icone: "🎨",
+      pergunta: "O que muitos turistas vão fazer em Brusque?",
+      opcoes: ["Surfar", "Compras de roupas", "Esquiar", "Pescar no mar"],
+      correta: 1
+    },
+    {
+      icone: "🍺",
+      pergunta: "Qual bebida típica alemã se encontra na Fenarreco?",
+      opcoes: ["Suco de uva só", "Chope e cerveja", "Café gelado", "Refrigerante só"],
+      correta: 1
+    },
+    {
+      icone: "🌳",
+      pergunta: "Qual bioma da Mata Atlântica está em Brusque?",
+      opcoes: ["Caatinga", "Floresta Atlântica", "Cerrado", "Pampa"],
+      correta: 1
+    },
+    {
+      icone: "🚙",
+      pergunta: "Brusque fica perto de qual cidade grande?",
+      opcoes: ["Manaus", "Blumenau", "Recife", "Belém"],
+      correta: 1
+    },
+    {
+      icone: "🎵",
+      pergunta: "Qual dança alemã é típica nas festas de Brusque?",
+      opcoes: ["Samba", "Polca", "Funk", "Frevo"],
+      correta: 1
+    },
+    {
+      icone: "🛣️",
+      pergunta: "Qual rodovia liga Brusque a outras cidades?",
+      opcoes: ["BR-101", "BR-486 (Antônio Heil)", "BR-040", "BR-116 só"],
+      correta: 1
+    },
+    {
+      icone: "🏥",
+      pergunta: "Qual é o hospital famoso de Brusque?",
+      opcoes: ["Hospital Albert Einstein", "Hospital Azambuja", "Hospital Sírio", "Hospital Sarah"],
+      correta: 1
+    },
+    {
+      icone: "🍞",
+      pergunta: "Qual doce típico alemão é feito em Brusque?",
+      opcoes: ["Brigadeiro", "Cuca", "Beijinho", "Pé de moleque"],
+      correta: 1
+    }
+  ],
+
+  dificil: [
+    {
+      icone: "📜",
+      pergunta: "Em que ano Brusque foi fundada?",
+      opcoes: ["1860", "1900", "1700", "2000"],
+      correta: 0
+    },
+    {
+      icone: "👑",
+      pergunta: "Qual era o nome original do lugar antes de ser Brusque?",
+      opcoes: ["Colônia Itajahy", "Vila Nova", "Porto Seguro", "São José"],
+      correta: 0
+    },
+    {
+      icone: "🇮🇹",
+      pergunta: "Brusque recebeu o nome de qual pessoa?",
+      opcoes: ["Francisco Carlos de Araújo Brusque", "João Brusque", "Pedro Brusque", "Carlos Magno"],
+      correta: 0
+    },
+    {
+      icone: "🏰",
+      pergunta: "Quem foi Francisco Carlos de Araújo Brusque?",
+      opcoes: ["Um rei", "Presidente da província de SC", "Um jogador", "Um artista"],
+      correta: 1
+    },
+    {
+      icone: "🧵",
+      pergunta: "Qual é uma das maiores fábricas têxteis históricas de Brusque?",
+      opcoes: ["Renaux", "Coca-Cola", "Nike", "Adidas"],
+      correta: 0
+    },
+    {
+      icone: "🦅",
+      pergunta: "Qual é o apelido do time Brusque FC?",
+      opcoes: ["Quadricolor do Vale", "Verdão", "Mengão", "Timão"],
+      correta: 0
+    },
+    {
+      icone: "📿",
+      pergunta: "Qual santuário famoso fica em Brusque/Guabiruba (região)?",
+      opcoes: ["Santuário de Azambuja", "Aparecida", "Fátima", "Lourdes"],
+      correta: 0
+    },
+    {
+      icone: "🎂",
+      pergunta: "Qual é o aniversário (dia) de Brusque?",
+      opcoes: ["4 de agosto", "1 de janeiro", "25 de dezembro", "7 de setembro"],
+      correta: 0
+    },
+    {
+      icone: "🏆",
+      pergunta: "O Brusque FC já jogou em qual série do Brasileirão?",
+      opcoes: ["Série A", "Série B", "Série Z", "Nunca jogou"],
+      correta: 1
+    },
+    {
+      icone: "🌍",
+      pergunta: "Qual idioma além do português é muito falado por idosos em Brusque?",
+      opcoes: ["Russo", "Alemão e italiano", "Chinês", "Árabe"],
+      correta: 1
+    },
+    {
+      icone: "🗿",
+      pergunta: "Qual é o nome do museu histórico de Brusque?",
+      opcoes: ["Museu Nacional", "Museu Histórico de Brusque", "MASP", "Museu do Ipiranga"],
+      correta: 1
+    },
+    {
+      icone: "🎤",
+      pergunta: "A Fenarreco acontece em qual época do ano?",
+      opcoes: ["Janeiro", "Outubro", "Junho", "Dezembro"],
+      correta: 1
+    },
+    {
+      icone: "🏟️",
+      pergunta: "Qual é o estádio do Brusque FC?",
+      opcoes: ["Maracanã", "Estádio Augusto Bauer", "Morumbi", "Mineirão"],
+      correta: 1
+    },
+    {
+      icone: "🛕",
+      pergunta: "O que é o 'Pórtico' famoso de Brusque?",
+      opcoes: ["Uma loja", "Uma entrada decorada da cidade", "Um rio", "Um animal"],
+      correta: 1
+    },
+    {
+      icone: "👨‍🎤",
+      pergunta: "Qual personagem é o mascote do Brusque FC?",
+      opcoes: ["Mickey", "Quadricolor", "Pikachu", "Bob Esponja"],
+      correta: 1
+    },
+    {
+      icone: "📚",
+      pergunta: "Qual livro fala muito sobre a história de Brusque?",
+      opcoes: ["Dom Casmurro", "Brusque: um pedaço da Europa no Brasil", "Harry Potter", "Diário de um Banana"],
+      correta: 1
+    },
+    {
+      icone: "🌐",
+      pergunta: "Brusque faz parte de qual microrregião de SC?",
+      opcoes: ["Microrregião de Joinville", "Microrregião de Blumenau", "Microrregião de Florianópolis", "Microrregião de Chapecó"],
+      correta: 1
+    },
+    {
+      icone: "👷",
+      pergunta: "Quais imigrantes vieram a Brusque além de alemães e italianos?",
+      opcoes: ["Só japoneses", "Poloneses e portugueses", "Só argentinos", "Só franceses"],
+      correta: 1
+    },
+    {
+      icone: "🎨",
+      pergunta: "Quais cores tem a bandeira de Brusque?",
+      opcoes: ["Azul, branco e amarelo", "Roxo e rosa", "Preto e branco só", "Verde só"],
+      correta: 0
+    }
+  ]
+};
+
+/* ============================================================
+   MENSAGENS DE ENCORAJAMENTO
+   ============================================================ */
+const MENSAGENS_ACERTO = [
+  "🌟 Você é demais!",
+  "🎉 Mandou bem!",
+  "🏆 Que inteligente!",
+  "✨ Fantástico!",
+  "🎈 Continue assim!",
+  "💪 Você é um campeão!",
+  "🦄 Mágico!",
+  "🌈 Lindo demais!",
+  "🚀 Você vai longe!",
+  "⭐ Brilhante!"
+];
+
+const MENSAGENS_ERRO = [
+  "💝 Tudo bem! Você está aprendendo!",
+  "🌱 Errar é assim que crescemos!",
+  "🤗 Continue tentando, você consegue!",
+  "🐢 Devagar e sempre, vamos juntos!",
+  "🌟 Quase! Você é muito esforçado!",
+  "💪 Não desista, você é forte!",
+  "🌻 Cada erro nos ensina algo novo!",
+  "🦋 Você está indo super bem!",
+  "🎈 A próxima é sua!",
+  "✨ Você é especial do mesmo jeito!"
+];
+
+/* ============================================================
+   ESTADO DO JOGO
+   ============================================================ */
+let estado = {
+  nome: "",
+  dificuldade: "facil",
+  perguntasAtuais: [],
+  indiceAtual: 0,
+  pontos: 0,
+  respondendo: false
+};
+
+/* ============================================================
+   ÁUDIO - WEB SPEECH API
+   ============================================================ */
+let vozes = [];
+function carregarVozes() {
+  vozes = speechSynthesis.getVoices();
+}
+if (typeof speechSynthesis !== 'undefined') {
+  carregarVozes();
+  speechSynthesis.onvoiceschanged = carregarVozes;
+}
+
+function falar(texto, callback) {
+  if (typeof speechSynthesis === 'undefined') return;
+  speechSynthesis.cancel();
+
+  const utter = new SpeechSynthesisUtterance(texto);
+  utter.lang = 'pt-BR';
+  utter.rate = 0.85;
+  utter.pitch = 1.2;
+  utter.volume = 1;
+
+  // Tenta achar uma voz em português
+  const vozPt = vozes.find(v => v.lang.startsWith('pt'));
+  if (vozPt) utter.voice = vozPt;
+
+  if (callback) utter.onend = callback;
+  speechSynthesis.speak(utter);
+}
+
+function pararFala() {
+  if (typeof speechSynthesis !== 'undefined') {
+    speechSynthesis.cancel();
+  }
+}
+
+/* ============================================================
+   NAVEGAÇÃO ENTRE TELAS
+   ============================================================ */
+function mostrarTela(idTela) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+  document.getElementById(idTela).classList.add('ativa');
+  window.scrollTo(0, 0);
+}
+
+function voltarInicial() {
+  pararFala();
+  mostrarTela('tela-inicial');
+}
+
+function irParaDificuldades() {
+  pararFala();
+  const input = document.getElementById('nome-input');
+  const nome = input.value.trim();
+  if (nome) {
+    estado.nome = nome;
+    try { localStorage.setItem('quizBrusque_nome', nome); } catch(e) {}
+    document.getElementById('ola-jogador').innerHTML = `🎮 Olá, ${nome}!`;
+  } else {
+    estado.nome = "";
+    document.getElementById('ola-jogador').innerHTML = `🎮 Escolha o Nível!`;
+  }
+  mostrarTela('tela-dificuldade');
+}
+
+/* ============================================================
+   EMBARALHAR (Fisher-Yates)
+   ============================================================ */
+function embaralhar(array) {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ============================================================
+   INICIAR QUIZ
+   ============================================================ */
+function iniciarQuiz(dificuldade) {
+  estado.dificuldade = dificuldade;
+  estado.indiceAtual = 0;
+  estado.pontos = 0;
+
+  // Sortear 10 perguntas da piscina daquela dificuldade
+  const piscina = PERGUNTAS[dificuldade];
+  const sorteadas = embaralhar(piscina).slice(0, 10);
+
+  // Para cada pergunta, embaralhar opções mantendo o índice da correta
+  estado.perguntasAtuais = sorteadas.map(p => {
+    const opcoesComIndice = p.opcoes.map((texto, idx) => ({ texto, original: idx }));
+    const opcoesEmbaralhadas = embaralhar(opcoesComIndice);
+    const novoIndiceCorreta = opcoesEmbaralhadas.findIndex(o => o.original === p.correta);
+    return {
+      icone: p.icone,
+      pergunta: p.pergunta,
+      opcoes: opcoesEmbaralhadas.map(o => o.texto),
+      correta: novoIndiceCorreta
+    };
+  });
+
+  // Atualizar nível mostrado
+  const nomesNivel = { facil: "🐣 Fácil", medio: "🦁 Médio", dificil: "🚀 Difícil" };
+  document.getElementById('nivel-atual').textContent = nomesNivel[dificuldade];
+
+  mostrarTela('tela-quiz');
+  mostrarPergunta();
+}
+
+/* ============================================================
+   MOSTRAR PERGUNTA ATUAL
+   ============================================================ */
+function mostrarPergunta() {
+  estado.respondendo = true;
+  const p = estado.perguntasAtuais[estado.indiceAtual];
+
+  document.getElementById('numero-pergunta').textContent = estado.indiceAtual + 1;
+  document.getElementById('pontos-atuais').textContent = estado.pontos;
+  document.getElementById('progresso').style.width = ((estado.indiceAtual + 1) * 10) + '%';
+
+  document.getElementById('pergunta-icone').textContent = p.icone;
+  document.getElementById('pergunta-texto').textContent = p.pergunta;
+
+  document.getElementById('feedback').classList.remove('show', 'acerto', 'erro');
+
+  const container = document.getElementById('respostas-container');
+  container.innerHTML = '';
+  const letras = ['A', 'B', 'C', 'D'];
+
+  p.opcoes.forEach((opcao, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'resposta';
+    btn.innerHTML = `<span class="letra">${letras[idx]}</span><span>${opcao}</span>`;
+    btn.onclick = () => responder(idx, btn);
+    btn.setAttribute('aria-label', `Opção ${letras[idx]}: ${opcao}`);
+    container.appendChild(btn);
+  });
+
+  // Ler pergunta automaticamente
+  setTimeout(() => lerPergunta(), 400);
+}
+
+/* ============================================================
+   LER PERGUNTA EM VOZ ALTA
+   ============================================================ */
+function lerPergunta() {
+  const p = estado.perguntasAtuais[estado.indiceAtual];
+  const letras = ['A', 'B', 'C', 'D'];
+  let texto = p.pergunta + '. ';
+  p.opcoes.forEach((op, idx) => {
+    texto += `Opção ${letras[idx]}: ${op}. `;
+  });
+
+  const btn = document.getElementById('btn-audio');
+  btn.classList.add('tocando');
+  falar(texto, () => btn.classList.remove('tocando'));
+}
+
+/* ============================================================
+   RESPONDER PERGUNTA
+   ============================================================ */
+function responder(indiceEscolhido, botaoElement) {
+  if (!estado.respondendo) return;
+  estado.respondendo = false;
+  pararFala();
+
+  const p = estado.perguntasAtuais[estado.indiceAtual];
+  const botoes = document.querySelectorAll('.resposta');
+  botoes.forEach(b => b.disabled = true);
+
+  const acertou = indiceEscolhido === p.correta;
+
+  if (acertou) {
+    botaoElement.classList.add('correta');
+    estado.pontos++;
+    document.getElementById('pontos-atuais').textContent = estado.pontos;
+    mostrarFeedback(true);
+    soltarConfete();
+  } else {
+    botaoElement.classList.add('errada');
+    botoes[p.correta].classList.add('correta');
+    mostrarFeedback(false);
+  }
+
+  // Próxima pergunta em 2.8s
+  setTimeout(() => {
+    estado.indiceAtual++;
+    if (estado.indiceAtual >= estado.perguntasAtuais.length) {
+      finalizarQuiz();
+    } else {
+      mostrarPergunta();
+    }
+  }, 2800);
+}
+
+/* ============================================================
+   FEEDBACK VISUAL E SONORO
+   ============================================================ */
+function mostrarFeedback(acertou) {
+  const feedback = document.getElementById('feedback');
+  const emoji = document.getElementById('feedback-emoji');
+  const texto = document.getElementById('feedback-texto');
+
+  if (acertou) {
+    const msg = MENSAGENS_ACERTO[Math.floor(Math.random() * MENSAGENS_ACERTO.length)];
+    feedback.classList.add('show', 'acerto');
+    feedback.classList.remove('erro');
+    emoji.textContent = ['🎉','🌟','🏆','✨','🎈'][Math.floor(Math.random()*5)];
+    texto.textContent = msg;
+    falar("Muito bem! " + msg.replace(/[^\w\sáéíóúâêîôûãõçÁÉÍÓÚÂÊÎÔÛÃÕÇ!.,? ]/g, ''));
+  } else {
+    const msg = MENSAGENS_ERRO[Math.floor(Math.random() * MENSAGENS_ERRO.length)];
+    feedback.classList.add('show', 'erro');
+    feedback.classList.remove('acerto');
+    emoji.textContent = ['💝','🌱','🤗','🌟','🌻'][Math.floor(Math.random()*5)];
+    texto.textContent = msg;
+    falar(msg.replace(/[^\w\sáéíóúâêîôûãõçÁÉÍÓÚÂÊÎÔÛÃÕÇ!.,? ]/g, ''));
+  }
+}
+
+/* ============================================================
+   CONFETE (animação ao acertar)
+   ============================================================ */
+function soltarConfete() {
+  const cores = ['#ff6b9d','#ffd93d','#6bcf7f','#4d96ff','#b388ff','#ff9248'];
+  const emojis = ['🎉','⭐','🎈','✨','🌟','🎊','🥳','🦄'];
+
+  for (let i = 0; i < 25; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confete';
+      c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.fontSize = (Math.random()*20+20) + 'px';
+      c.style.animationDuration = (Math.random()*1.5+2) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 3500);
+    }, i * 50);
+  }
+}
+
+/* ============================================================
+   FINALIZAR QUIZ
+   ============================================================ */
+function finalizarQuiz() {
+  document.getElementById('pontuacao-texto').textContent = estado.pontos;
+
+  let estrelas, msg, titulo;
+  const nome = estado.nome ? estado.nome : "Campeão";
+
+  if (estado.pontos === 10) {
+    estrelas = "⭐⭐⭐⭐⭐";
+    titulo = `🏆 PERFEITO, ${nome}! 🏆`;
+    msg = "Você acertou TUDO! Que orgulho! Você conhece Brusque demais! 🎊";
+  } else if (estado.pontos >= 8) {
+    estrelas = "⭐⭐⭐⭐";
+    titulo = `🎉 INCRÍVEL, ${nome}! 🎉`;
+    msg = "Você foi fantástico! Continue assim, você é uma estrela! ✨";
+  } else if (estado.pontos >= 5) {
+    estrelas = "⭐⭐⭐";
+    titulo = `😊 MUITO BEM, ${nome}! 😊`;
+    msg = "Você foi muito bem! Que tal jogar de novo para aprender mais? 🌈";
+  } else if (estado.pontos >= 3) {
+    estrelas = "⭐⭐";
+    titulo = `💪 BOM TRABALHO, ${nome}! 💪`;
+    msg = "Você está aprendendo bastante! Vamos tentar de novo? 🌱";
+  } else {
+    estrelas = "⭐";
+    titulo = `🌟 PARABÉNS, ${nome}! 🌟`;
+    msg = "Você é corajoso por tentar! Aprender é uma aventura. Vamos de novo? 🚀";
+  }
+
+  document.getElementById('titulo-final').textContent = titulo;
+  document.getElementById('estrelas-final').textContent = estrelas;
+  document.getElementById('mensagem-final').textContent = msg;
+
+  mostrarTela('tela-final');
+
+  // Confete final se for boa pontuação
+  if (estado.pontos >= 7) {
+    setTimeout(() => soltarConfete(), 200);
+    setTimeout(() => soltarConfete(), 800);
+  }
+
+  // Ler resultado
+  setTimeout(() => {
+    falar(`Parabéns ${nome}! Você acertou ${estado.pontos} de 10. ${msg.replace(/[^\w\sáéíóúâêîôûãõçÁÉÍÓÚÂÊÎÔÛÃÕÇ!.,? ]/g, '')}`);
+  }, 600);
+}
+
+function reiniciarMesmoNivel() {
+  iniciarQuiz(estado.dificuldade);
+}
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+window.addEventListener('DOMContentLoaded', () => {
+  // Recuperar nome salvo se houver
+  try {
+    const nomeSalvo = localStorage.getItem('quizBrusque_nome');
+    if (nomeSalvo) {
+      document.getElementById('nome-input').value = nomeSalvo;
+    }
+  } catch(e) {}
+
+  // Suporte para teclado nas cards de dificuldade
+  document.querySelectorAll('.card-dificuldade').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  // Permitir Enter no input para avançar
+  document.getElementById('nome-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') irParaDificuldades();
+  });
+});
+</script>
+
 </body>
 </html>
